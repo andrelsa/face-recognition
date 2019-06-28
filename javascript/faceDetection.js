@@ -12,18 +12,19 @@ function init() {
     //sera pego a face do usuario pra ser colocado na camera
     tracking.track('#video', tracker, { camera: true })
 
-    tracker.on('track', event => {                
+    tracker.on('track', event => {              
+        //Limpa o retângulo especifico, tornando-o totalmente transparente  
         context.clearRect(0, 0, canvas.width, canvas.height)
         event.data.forEach(rect => {
-            //cor do quadrado que fica no rosto
+            //cor do retangulo que fica no rosto
             context.strokeStyle = '#ff007f'
-            //expessura da linha do quadrado
+            //expessura da linha do retangulo
             context.lineWidth = 2
             //fonte das informacoes dos eixos X e Y
             context.font = '11px Helvetica'
             //cor da fonte das informações dos eixos X e Y
             context.fillStyle = "#FFFF00"
-            //desenhando o retangulo
+            //desenhando a borda do retangulo
             context.strokeRect(rect.x, rect.y, rect.width, rect.height)
             //Mostrar a informação de onde esta sendo reconhecido o retangulo no eixo X
             //Com isso é possível escrever um texto sobre a imagem
