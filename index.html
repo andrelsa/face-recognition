@@ -5,24 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Face Tracking</title>
-
-    <style>
-        video, canvas{
-            position: absolute;
-            border: 1px solid red;
-        }
-    </style>
-
-</head>
-<body>
-    <video id="video" width="320" height="240" preload autoplay loop muted></video>
-    <canvas id="canvas" width="320" height="240"></canvas>
-
+    
     <script src="tracking-min.js"></script>
     <script src="data/face-min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="css/face.css">
+
+</head>
+<body>
+    <video id="video" width="740" height="560" preload autoplay loop muted></video>
+    <canvas id="canvas" width="740" height="560"></canvas>
+
     <!-- JavaScript -->
-    <script src="javascript/script.js"></script>    
+    <script src="javascript/faceDetection.js"></script>    
     
 </body>
 </html>

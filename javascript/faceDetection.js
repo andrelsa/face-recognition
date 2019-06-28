@@ -6,16 +6,23 @@ function init() {
     const context = canvas.getContext('2d')            
     //responsavel por buscar as caracteristicas da imagem
     const tracker = new tracking.ObjectTracker('face')
+    tracker.setInitialScale(6);
+    tracker.setStepSize(2);
+    tracker.setEdgesDensity(0.1);
     //sera pego a face do usuario pra ser colocado na camera
     tracking.track('#video', tracker, { camera: true })
-    
+
     tracker.on('track', event => {                
         context.clearRect(0, 0, canvas.width, canvas.height)
         event.data.forEach(rect => {
-            //cor do retangulo que fica no rosto
-            context.strokeStyle = '#ff0000'
-            //expessura da linha
+            //cor do quadrado que fica no rosto
+            context.strokeStyle = '#ff007f'
+            //expessura da linha do quadrado
             context.lineWidth = 2
+            //fonte das informacoes dos eixos X e Y
+            context.font = '11px Helvetica'
+            //cor da fonte das informações dos eixos X e Y
+            context.fillStyle = "#FFFF00"
             //desenhando o retangulo
             context.strokeRect(rect.x, rect.y, rect.width, rect.height)
             //Mostrar a informação de onde esta sendo reconhecido o retangulo no eixo X
@@ -28,4 +35,4 @@ function init() {
     })
 }
 // Quando carregar a pagina será chamado a função
-window.onload = init()  
+window.onload = init()

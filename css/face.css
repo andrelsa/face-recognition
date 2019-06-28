@@ -1,0 +1,4 @@
+#video, #canvas {
+    position: absolute;
+    border: 5px solid yellowgreen;
+}
