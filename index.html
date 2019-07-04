@@ -13,11 +13,19 @@
 
 </head>
 <body>
-    <video id="video" width="740" height="560" preload autoplay loop muted></video>
-    <canvas id="canvas" width="740" height="560"></canvas>
+    <div class="container">
+        <video id="video" width="740" height="560" preload autoplay loop muted></video>
+        <canvas id="canvas" width="740" height="560"></canvas>
+    </div>    
+
+    <form>
+        <div id="botao">
+            <input type="submit" name="Clique aqui!" value="Clique aqui!" class="botaoEnviar"/>
+        </div>
+    </form>
 
     <!-- JavaScript -->
-    <script src="javascript/faceDetection.js"></script>    
+    <script src="javascript/faceDetection.js"></script>
     
 </body>
 </html>
