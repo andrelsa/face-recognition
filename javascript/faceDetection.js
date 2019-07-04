@@ -1,5 +1,5 @@
 
-function init() {
+function deteccao() {
     const video = document.getElementById('video')
     const canvas = document.getElementById('canvas')            
     //pegando o contexto do canvas
@@ -36,4 +36,4 @@ function init() {
     })
 }
 // Quando carregar a pagina será chamado a função
-window.onload = init()
+window.onload = deteccao()
