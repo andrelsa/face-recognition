@@ -1,6 +1,6 @@
-#video, #canvas {
-    position: absolute;
-    border: 5px solid yellowgreen;
+body{
+    background-color: #373435;
+    height: 100%;
 }
 
 .container{
@@ -13,10 +13,11 @@
     margin-bottom: 50px;
 }
 
-body{
-    background-color: #373435;
-    height: 100%;
+#video, #canvas {
+    position: absolute;
+    border: 5px solid yellowgreen;
 }
+
 form{
     display: flex;
     align-items: center;
@@ -24,6 +25,7 @@ form{
     flex-direction: column;
     /* min-height: 100vh; */
 }
+
 .botaoEnviar{
     width: 350px;
     padding: 15px 20px;

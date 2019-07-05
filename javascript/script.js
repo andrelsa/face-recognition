@@ -9,7 +9,7 @@ function init() {
     //sera pego a face do usuario pra ser colocado na camera
     tracking.track('#video', tracker, { camera: true })
     
-    tracker.on('track', event => {                
+    tracker.on('track', event => {            
         context.clearRect(0, 0, canvas.width, canvas.height)
         event.data.forEach(rect => {
             //cor do retangulo que fica no rosto
