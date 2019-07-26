@@ -7,8 +7,7 @@
     <title>Face Tracking</title>
 
     <!-- Biblioteca que salva a imagem no formato .png -->
-    <script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>
-    <!-- <script src="https://github.com/gillyb/reimg"></script> -->
+    <script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>    
 
 </head>
 <body>
@@ -19,8 +18,6 @@
     <canvas id="snapshot" width=320 height=240 style="border:2px solid #000000;"></canvas>
     <!-- No botão iremos chamar a funçao que salva a imagem capturada da webcam -->
     <button id="capture" onclick="save_image()">Capture</button>
-    <!-- <image id="theimage"></image> -->
-    <!-- <button id="capture">Capture</button> -->
 
     <script>
         var player = document.getElementById('player');
@@ -40,10 +37,9 @@
             // Draw the video frame to the canvas.
             context.drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
             var canvas = document.getElementById("snapshot");
-            //document.getElementById("snapshot").src = canvas.toDataURL('image/jpeg', 1.0);
-            //Canvas2Image.saveAsJPEG(canvas);
+            // Capturar o blob da imagem para retornar ao back-end
             canvas.toBlob(function(blob) {
-                alert(blob.type); //retornar sucesso ao capturar e salvar a imagem
+                alert("Imagem capturada", blob.type); //retornar sucesso ao capturar e salvar a imagem
             });
         }
     </script>
