@@ -16,9 +16,11 @@
     <video id="player" controls autoplay></video>
     <!-- Canvas armazenará o qadro da câmera (frame), com isso teremos o acesso ao fluxo da câmera -->
     <canvas id="snapshot" width=320 height=240></canvas>
-    <!-- No botão iremos chamar a função que salva a imagem capturada da webcam -->
-    <button id="capture" onclick="to_image()">Capture</button>
-    
+    <!-- No botão iremos chamar a funçao que salva a imagem capturada da webcam -->
+    <button id="capture" onclick="save_image()">Capture</button>
+    <!-- <image id="theimage"></image> -->
+    <!-- <button id="capture">Capture</button> -->
+
     <script>
         var player = document.getElementById('player');
         var snapshotCanvas = document.getElementById('snapshot');
@@ -31,21 +33,15 @@
         navigator.mediaDevices.getUserMedia({video: true})
             .then(handleSuccess);
         
-        function to_image(){
-            document.getElementById("theimage").src = canvas.toDataURL();
-            Canvas2Image.saveAsPNG(canvas);
-        }
-        
-        // Quando quiser capturar um quadro (frame) preciso, adicione os dados do elemento "video" a um objeto "canvas" usando drawImage().
-        captureButton.addEventListener('click', function() {
+        function save_image(){
             var context = snapshot.getContext('2d');
             // Draw the video frame to the canvas.
             context.drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);            
             var canvas = document.getElementById("snapshot");
-            canvas.toBlob(function(blob) {
-                alert("Imagem capturada", blob.type); //retornar sucesso ao capturar e salvar a imagem
-            });
-        });        
+            //document.getElementById("snapshot").src = canvas.toDataURL('image/jpeg', 1.0);
+            Canvas2Image.saveAsJPEG(canvas);
+            console.log();
+        }        
     </script>
 
 </body>
