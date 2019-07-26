@@ -1,0 +1,29 @@
+body{
+    background-color: #373435;
+    height: 100%;
+}
+
+.label{
+    color: white;
+    font-size: 18px;    
+}
+
+.container{
+    width: 100vw;
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+#video, #canvas {
+    position: absolute;
+    border: 5px solid yellowgreen;
+}
+
+.margin-t30{
+    margin-top: 30px;
+}

@@ -13,7 +13,7 @@ body{
     margin-bottom: 50px;
 }
 
-#video, #canvas {
+#player, #snapshot {
     position: absolute;
     border: 5px solid yellowgreen;
 }
@@ -23,7 +23,6 @@ form{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    /* min-height: 100vh; */
 }
 
 .botaoEnviar{

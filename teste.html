@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Face Tracking</title>
+
+    <!-- Biblioteca que salva a imagem no formato .png -->
+    <script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>    
+     
+</head>
+<body>
+    
+    <!-- É utilizado para incorporar conteúdo de vídeo em um documento  -->
+    <video id="player" controls autoplay></video>
+    <!-- Canvas armazenará o qadro da câmera (frame), com isso teremos o acesso ao fluxo da câmera -->
+    <canvas id="snapshot" width=320 height=240></canvas>
+    <!-- No botão iremos chamar a funçao que salva a imagem capturada da webcam -->
+    <button id="capture" onclick="to_image()">Capture</button>
+    <image id="theimage"></image>
+    <!-- <button id="capture">Capture</button> -->
+
+    <script>
+        var player = document.getElementById('player');
+        var snapshotCanvas = document.getElementById('snapshot');
+        var captureButton = document.getElementById('capture');
+        
+        var handleSuccess = function(stream) {        
+            player.srcObject = stream;
+        };
+
+        // function save_image() {
+        //     var canvas = document.getElementById("snapshot");        
+        //     if (canvas.getContext) {
+        //         var ctx = canvas.getContext("2d");                
+        //         var myImage = canvas.toDataURL('image/jpeg', 1.0);      
+        //     }
+        //     var imageElement = document.getElementById("MyPix");  
+        //     window.location = myImage;    
+        //     console.log();                                   
+        // }
+        
+        function to_image(){
+                var canvas = document.getElementById("snapshot");
+                document.getElementById("theimage").src = canvas.toDataURL();
+                Canvas2Image.saveAsPNG(canvas);
+        }
+        
+        // Quando quiser capturar um quadro (frame) preciso, adicione os dados do elemento "video" a um objeto "canvas" usando drawImage().
+        captureButton.addEventListener('click', function() {
+            var context = snapshot.getContext('2d');
+            // Draw the video frame to the canvas.
+            context.drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);            
+        });
+        
+        navigator.mediaDevices.getUserMedia({video: true})
+            .then(handleSuccess);
+    </script>
+
+</body>
+</html>

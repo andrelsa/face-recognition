@@ -1,4 +1,3 @@
-
 function deteccao() {
     const video = document.getElementById('video')
     const canvas = document.getElementById('canvas')            
@@ -12,7 +11,7 @@ function deteccao() {
     //sera pego a face do usuario pra ser colocado na camera
     tracking.track('#video', tracker, { camera: true })
 
-    tracker.on('track', event => {            
+    tracker.on('track', event => {     
         //Limpa o retângulo especifico, tornando-o totalmente transparente  
         context.clearRect(0, 0, canvas.width, canvas.height)
         event.data.forEach(rect => {

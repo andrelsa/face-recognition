@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro usuario</title>
+
+    <!-- <link rel="stylesheet" type="text/css" href="css/face.css"> -->
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>
+    <script src="//wzrd.in/standalone/blob-util@latest"></script>
+
+    <script>
+    
+        function configurarPlayer(player) {                        
+            var handleSuccess = function(stream) {      
+                player.srcObject = stream;
+            };
+
+            navigator.mediaDevices.getUserMedia({video: true})
+            .then(handleSuccess);
+        }
+                       
+        function capturarImagem(player) {
+        var snapshotCanvas = document.getElementById('snapshot');
+
+            var context = snapshot.getContext('2d');
+            // Draw the video frame to the canvas.
+            context.drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
+            var canvas = document.getElementById("snapshot");            
+            canvas.toBlob(function(blob) {
+                var file = $('#file')[0].files[0];
+                var fileReader = new FileReader();
+                fileReader.onloadend = function (e) {
+                    var arrayBuffer = e.target.result;
+                    var fileType = $('#file-type').val();
+                    blobUtil.arrayBufferToBlob(arrayBuffer, fileType).then(function (blob) {
+                    console.log('here is a blob', blob);
+                    console.log('its size is', blob.size);
+                    console.log('its type is', blob.type);
+                    }).catch(console.log.bind(console));
+                };
+                fileReader.readAsArrayBuffer(file);
+            }); 
+        }
+        
+        (function ($) {
+            $.fn.serializeFormJSON = function () {
+                var o = {};
+                var a = this.serializeArray();
+
+                $.each(a, function () {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+        })(jQuery);
+
+        function enviarFoto(idUsuario, player) {
+            capturarImagem(player);
+
+            var form = $('#cadastrofoto')[0];
+            var data = new FormData(form);            
+
+            $.ajax({
+                type: "POST",
+                url: "http://192.168.1.170:8086/authface/users/" +idUsuario+ "/file",
+                enctype: 'multipart/form-data',
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function sucesso(id) {
+                    console.log(id);                    
+                }
+            });            
+        }        
+
+        function configurarCadastro(player) {
+            $("#cadastrar").on("click", function name() {                              
+
+                $.ajax({
+                    type: "PUT",
+                    url: "http://192.168.1.170:8086/authface/users",
+                    data: JSON.stringify($( '#cadastronome' ).serializeFormJSON()),
+                    contentType: 'application/json',
+                    success: function name(id) {
+                        enviarFoto(id, player);
+                    },
+                });
+            });
+        }
+
+        $( document ).ready(function() {
+            var player = document.getElementById('player');      
+            configurarPlayer(player);
+            configurarCadastro(player);    
+        })
+    
+    </script>
+
+</head>
+<body>
+    
+    <form id="cadastronome">
+        <div class="margin-t30">
+            <label for="name" class="label">Nome:</label>
+            <input type="text" id="name" name="name"/>
+        </div>
+    </form>
+
+    <form id="cadastrofoto" enctype="multipart/form-data">
+        <div class="container">
+            <video id="player" controls autoplay></video>
+            <canvas id="snapshot" width=320 height=240 style="border:2px solid #000000;"></canvas>
+        </div>
+        <div id="botao">
+            <input type="button" name="Foto!" value="Cadastar" class="botaoEnviar" id="cadastrar"/>
+        </div>
+        <input type="file" name="file" id="file" style="display: none"/>
+        <input type="text" id="file-type" value="image/png">
+    </form>
+
+   
+</body>
+</html>
